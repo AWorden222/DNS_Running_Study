@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Running Science Study — University of Brighton</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  --bg:          #0C1E40;
+  --bg-card:     #101F42;
+  --bg-border:   #1C3660;
+  --bg-border-hi:#2B4E8C;
+  --bg-light:    #F6F9FF;
+  --bg-white:    #FFFFFF;
+
+  --blue:        #2563EB;
+  --blue-light:  #3B82F6;
+  --blue-dim:    rgba(37,99,235,0.09);
+  --blue-border: rgba(37,99,235,0.20);
+  --orange:      #FF6B47;
+  --orange-dim:  rgba(255,107,71,0.10);
+
+  --text-hi:     #EEF2F7;
+  --text-mid:    #8BA7BF;
+  --text-lo:     #4E6880;
+  --text-dk:     #0D1B2E;
+  --text-dk2:    #3B5A74;
+
+  --font-d: 'Space Grotesk', sans-serif;
+  --font-b: 'Inter', sans-serif;
+  --font-m: 'JetBrains Mono', monospace;
+
+  --r:  10px;
+  --rl: 16px;
+  --max: 1080px;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-b);
+  background: var(--bg);
+  color: var(--text-hi);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; }
+
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ============================================================
+   ANNOUNCEMENT BAR
+   ============================================================ */
+.announce-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 201;
+  background: var(--blue);
+  padding: 8px 24px;
+  text-align: center;
+  font-family: var(--font-d);
+  font-size: 13px;
+  font-weight: 500;
+  color: white;
+  letter-spacing: 0.01em;
+}
+.announce-bar a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-left: 6px;
+  transition: color 0.15s;
+}
+.announce-bar a:hover { color: white; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: fixed; top: 34px; left: 0; right: 0; z-index: 200;
+  padding: 14px 0;
+  background: rgba(12,30,64,0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--bg-border);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-brand { display: flex; flex-direction: column; gap: 2px; }
+.nav-brand-main {
+  font-family: var(--font-d);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-hi);
+  letter-spacing: 0.01em;
+}
+.nav-brand-sub {
+  font-size: 11px;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-d);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+  border: 1px solid var(--blue-border);
+  padding: 8px 18px;
+  border-radius: var(--r);
+  transition: background 0.18s, border-color 0.18s;
+}
+.nav-btn:hover { background: var(--blue-dim); border-color: var(--blue); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding-top: 130px;
+  padding-bottom: 80px;
+  max-width: 700px;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--blue);
+  background: var(--blue-dim);
+  border: 1px solid var(--blue-border);
+  padding: 5px 12px;
+  border-radius: 5px;
+  margin-bottom: 28px;
+}
+.eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%,100% { opacity:1; } 50% { opacity:0.3; }
+}
+.hero-h1 {
+  font-family: var(--font-d);
+  font-size: clamp(46px, 7.5vw, 84px);
+  font-weight: 700;
+  line-height: 0.97;
+  letter-spacing: -0.035em;
+  color: var(--text-hi);
+  margin-bottom: 30px;
+}
+.hero-h1 .accent { color: var(--blue); display: block; }
+.hero-sub {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text-mid);
+  line-height: 1.75;
+  max-width: 520px;
+  margin-bottom: 44px;
+}
+.hero-sub strong {
+  color: var(--text-hi);
+  font-weight: 500;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-d);
+  font-size: 16px;
+  font-weight: 600;
+  color: #060E1B;
+  background: var(--blue);
+  padding: 17px 34px;
+  border-radius: var(--r);
+  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+  margin-bottom: 52px;
+}
+.btn-primary:hover {
+  background: var(--blue-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(37,99,235,0.28);
+}
+.btn-primary .arr { font-size: 18px; }
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.stat-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 28px;
+}
+.stat-cell:first-child { padding-left: 0; }
+.stat-n {
+  font-family: var(--font-m);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text-hi);
+}
+.stat-l {
+  font-size: 12px;
+  color: var(--text-lo);
+  letter-spacing: 0.04em;
+}
+.stat-sep {
+  width: 1px;
+  height: 40px;
+  background: var(--bg-border);
+  flex-shrink: 0;
+}
+.scroll-cue {
+  position: absolute;
+  bottom: 36px;
+  right: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.35;
+}
+.scroll-cue span {
+  font-family: var(--font-m);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-mid);
+  writing-mode: vertical-lr;
+}
+.scroll-line {
+  width: 1px;
+  height: 52px;
+  background: linear-gradient(to bottom, var(--text-lo), transparent);
+  animation: scrollDrop 2.2s ease-in-out infinite;
+}
+@keyframes scrollDrop {
+  0%,100% { transform: scaleY(1); transform-origin: top; opacity:0.4; }
+  50% { opacity:1; }
+}
+
+/* ============================================================
+   SECTION COMMON
+   ============================================================ */
+section { padding: 100px 0; }
+.s-eyebrow {
+  display: block;
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--blue);
+  margin-bottom: 14px;
+}
+.s-h2 {
+  font-family: var(--font-d);
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  margin-bottom: 16px;
+  color: var(--text-hi);
+}
+.s-sub {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--text-mid);
+  line-height: 1.75;
+  max-width: 530px;
+  margin-bottom: 56px;
+}
+
+/* Light section overrides */
+.sec-light { background: var(--bg-light); }
+.sec-light .s-eyebrow { color: #1D55C0; }
+.sec-light .s-h2 { color: var(--text-dk); }
+.sec-light .s-sub { color: var(--text-dk2); }
+
+/* ============================================================
+   WHAT YOU GET — DATA CARDS
+   ============================================================ */
+.cards-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.d-card {
+  background: var(--bg-white);
+  border-radius: var(--rl);
+  padding: 30px 28px 24px;
+  border: 1px solid #E2E9F0;
+  position: relative;
+  overflow: hidden;
+}
+.d-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--rl) var(--rl) 0 0;
+}
+.d-card.c-blue-card::after   { background: var(--blue); }
+.d-card.c-orange::after { background: var(--orange); }
+.d-card.c-blue::after   { background: #3B82F6; }
+.card-kicker {
+  font-family: var(--font-m);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #7490A8;
+  margin-bottom: 8px;
+}
+.card-title {
+  font-family: var(--font-d);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-dk);
+  margin-bottom: 12px;
+}
+.card-body {
+  font-size: 14px;
+  color: var(--text-dk2);
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+.card-visual {
+  height: 68px;
+  border-radius: 8px;
+  background: #F4F7FA;
+  overflow: hidden;
+  position: relative;
+}
+/* RE bars */
+.re-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  padding: 6px 6px 0;
+  height: 100%;
+}
+.re-bar {
+  flex: 1;
+  background: var(--blue);
+  opacity: 0.65;
+  border-radius: 2px 2px 0 0;
+}
+/* Zone bars */
+.zone-strip {
+  display: flex;
+  height: 100%;
+}
+.z-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-m);
+  font-size: 9px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+}
+
+/* ============================================================
+   HOW IT WORKS — STEPS
+   ============================================================ */
+.steps-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px;
+}
+.step {
+  background: #FFFFFF;
+  border: 1px solid #D4E4F5;
+  padding: 40px 30px;
+}
+.step:first-child { border-radius: var(--rl) 0 0 var(--rl); }
+.step:last-child  { border-radius: 0 var(--rl) var(--rl) 0; }
+.step-num {
+  font-family: var(--font-m);
+  font-size: 44px;
+  font-weight: 500;
+  color: #BDD3EC;
+  line-height: 1;
+  margin-bottom: 22px;
+}
+.step-tag {
+  display: block;
+  font-family: var(--font-m);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+.step-title {
+  font-family: var(--font-d);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--text-dk);
+  margin-bottom: 12px;
+}
+.step-body {
+  font-size: 14px;
+  color: var(--text-dk2);
+  line-height: 1.75;
+  margin-bottom: 22px;
+}
+.step-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--text-dk2);
+  background: #F0F6FF;
+  border: 1px solid #D0E4F5;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+
+/* ============================================================
+   ELIGIBILITY CHECK
+   ============================================================ */
+.elig-wrap { max-width: 640px; }
+.prog-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.prog-track {
+  flex: 1;
+  height: 4px;
+  background: #D8E2EC;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.prog-fill {
+  height: 100%;
+  width: 0;
+  background: #1D55C0;
+  border-radius: 2px;
+  transition: width 0.35s cubic-bezier(.4,0,.2,1);
+}
+.prog-lbl {
+  font-family: var(--font-m);
+  font-size: 12px;
+  color: var(--text-dk2);
+  min-width: 40px;
+  text-align: right;
+}
+.check-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 18px;
+  background: var(--bg-white);
+  border: 2px solid #D8E2EC;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s;
+  user-select: none;
+}
+.check-row:hover { border-color: #A0BDD0; }
+.check-row.on { border-color: #1D55C0; background: rgba(37,99,235,0.06); }
+.cb {
+  width: 20px; height: 20px;
+  border: 2px solid #C0D0DC;
+  border-radius: 5px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.18s, border-color 0.18s;
+  margin-top: 1px;
+}
+.check-row.on .cb {
+  background: #1D55C0;
+  border-color: #1D55C0;
+}
+.cb-tick {
+  font-size: 11px;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+.check-row.on .cb-tick { opacity: 1; }
+.check-text {
+  font-size: 14px;
+  color: var(--text-dk);
+  line-height: 1.5;
+}
+.elig-result {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+.elig-result.show { max-height: 200px; opacity: 1; }
+.result-box {
+  padding: 24px 26px;
+  border-radius: var(--r);
+  border: 2px solid transparent;
+}
+.result-box.pass {
+  border-color: #1D55C0;
+  background: rgba(37,99,235,0.06);
+}
+.result-box.maybe {
+  border-color: #A0BDD0;
+  background: rgba(160,189,208,0.08);
+}
+.result-box.fail {
+  border-color: #D8E2EC;
+  background: #F4F7FA;
+}
+.result-title {
+  font-family: var(--font-d);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-dk);
+  margin-bottom: 6px;
+}
+.result-sub {
+  font-size: 14px;
+  color: var(--text-dk2);
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+.btn-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-d);
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  background: #1D55C0;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: background 0.18s;
+}
+.btn-go:hover { background: #2563EB; }
+
+/* ============================================================
+   TRUST STRIP
+   ============================================================ */
+.trust-strip {
+  padding: 60px 0;
+  background: #EEF4FB;
+  border-top: 1px solid #D0E4F5;
+  border-bottom: 1px solid #D0E4F5;
+}
+.trust-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 36px;
+}
+.trust-cell {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.trust-icon {
+  width: 38px; height: 38px;
+  border-radius: 9px;
+  background: rgba(37,99,235,0.07);
+  border: 1px solid rgba(37,99,235,0.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.trust-title {
+  font-family: var(--font-d);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dk);
+  margin-bottom: 3px;
+}
+.trust-sub {
+  font-size: 12px;
+  color: var(--text-dk2);
+}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 64px;
+  align-items: start;
+}
+.about-kicker {
+  font-family: var(--font-m);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #1D55C0;
+  margin-bottom: 20px;
+  display: block;
+}
+.about-card {
+  background: #F4F9FF;
+  border: 1px solid #D0E4F5;
+  border-radius: var(--rl);
+  padding: 32px;
+}
+.about-q {
+  font-family: var(--font-d);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dk);
+  margin-bottom: 8px;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.about-q:first-child { margin-top: 0; }
+.about-a {
+  font-size: 14px;
+  color: var(--text-dk2);
+  line-height: 1.7;
+}
+.about-a a { color: var(--blue); }
+
+/* ============================================================
+   FINAL CTA
+   ============================================================ */
+.cta-section {
+  text-align: center;
+  padding: 120px 0;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+.cta-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(37,99,235,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-section .s-h2 {
+  font-size: clamp(36px, 5.5vw, 62px);
+  max-width: 700px;
+  margin: 0 auto 16px;
+}
+.cta-section .s-sub {
+  max-width: 460px;
+  margin: 0 auto 44px;
+}
+.cta-note {
+  font-size: 13px;
+  color: var(--text-lo);
+  margin-top: 20px;
+}
+.cta-note a { color: var(--blue); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  padding: 28px 0;
+  background: var(--bg-card);
+  border-top: 1px solid var(--bg-border);
+}
+.foot-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.foot-copy {
+  font-size: 12px;
+  color: var(--text-lo);
+}
+.foot-links { display: flex; gap: 22px; }
+.foot-link {
+  font-size: 12px;
+  color: var(--text-lo);
+  transition: color 0.18s;
+}
+.foot-link:hover { color: var(--blue); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+}
+@media (max-width: 700px) {
+  .check-grid { grid-template-columns: 1fr; }
+  .steps-row > .step:first-child { border-radius: var(--rl) var(--rl) 0 0; }
+  .steps-row > .step:last-child  { border-radius: 0 0 var(--rl) var(--rl); }
+  .hero-stats { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .stat-sep { display: none; }
+  .scroll-cue { display: none; }
+  section { padding: 70px 0; }
+}
+
+/* ============================================================
+   SCROLL FADE
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  .fu {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .fu.vis { opacity: 1; transform: none; }
+  .fu-d1 { transition-delay: 0.08s; }
+  .fu-d2 { transition-delay: 0.16s; }
+  .fu-d3 { transition-delay: 0.24s; }
+}
+/* ============================================================
+   SECTION-SPECIFIC BACKGROUNDS
+   ============================================================ */
+.sec-steps { background: #F6F9FF; }
+.sec-about  { background: #FFFFFF; }
+
+/* ============================================================
+   LOCATION / MAP SECTION
+   ============================================================ */
+.loc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+@media (max-width: 800px) {
+  .loc-grid { grid-template-columns: 1fr; }
+}
+.map-box { display: flex; flex-direction: column; gap: 12px; }
+.map-iframe {
+  width: 100%;
+  height: 320px;
+  border: 0;
+  border-radius: var(--rl);
+  display: block;
+}
+.map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-d);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+  padding: 9px 16px;
+  border: 1px solid rgba(37,99,235,0.22);
+  border-radius: 7px;
+  background: rgba(37,99,235,0.07);
+  transition: background 0.18s;
+  align-self: flex-start;
+}
+.map-link:hover { background: rgba(37,99,235,0.14); }
+.transport-stack { display: flex; flex-direction: column; gap: 10px; }
+.transport-card {
+  display: flex;
+  gap: 14px;
+  padding: 16px 18px;
+  background: white;
+  border: 1px solid #D4E4F5;
+  border-radius: var(--r);
+}
+.t-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; line-height: 1.4; }
+.t-title {
+  font-family: var(--font-d);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dk);
+  margin-bottom: 5px;
+}
+.t-body { font-size: 13px; color: var(--text-dk2); line-height: 1.65; }
+.t-body a { color: var(--blue); }
+.t-body strong { font-weight: 600; color: var(--text-dk); }
+.transport-addr {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: #EEF4FB;
+  border-radius: var(--r);
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-dk2);
+  letter-spacing: 0.02em;
+}
+/* ============================================================
+   STATIC ELIGIBILITY LIST
+   ============================================================ */
+.elig-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 32px;
+  margin: 0 0 28px;
+  max-width: 580px;
+}
+@media (max-width: 600px) {
+  .elig-list { grid-template-columns: 1fr; }
+}
+.elig-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--text-dk);
+  line-height: 1.55;
+}
+.elig-list li::before {
+  content: "✓";
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.elig-note {
+  font-size: 14px;
+  color: var(--text-dk2);
+  line-height: 1.65;
+  margin-bottom: 28px;
+  max-width: 480px;
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  &#128197; Testing runs through <strong>31 July 2026</strong>. Limited places remaining.
+  <a href="#check">Book your spot now &rarr;</a>
+</div>
+
+<!-- ============================================================ NAV -->
+<nav class="nav">
+  <div class="nav-inner container">
+    <div class="nav-brand">
+      <span class="nav-brand-main">University of Brighton</span>
+      <span class="nav-brand-sub">MSc Applied Sport Physiology</span>
+    </div>
+    <a href="#check" class="nav-btn">Apply now &rarr;</a>
+  </div>
+</nav>
+
+<!-- ============================================================ HERO -->
+<section class="hero">
+  <canvas id="heroCanvas" class="hero-canvas"></canvas>
+  <div class="hero-content container">
+    <span class="eyebrow">Closes 31 July 2026 &middot; Meads Sport &amp; Exercise Science Labs, Brighton</span>
+    <h1 class="hero-h1">
+      Most runners<br>guess.
+      <span class="accent">You don't<br>have to.</span>
+    </h1>
+    <p class="hero-sub">
+      Recreational runners needed for a free physiology study at the University of Brighton.
+      <strong>Three lab visits. Your lactate threshold and running economy data, available to request at the end.</strong>
+    </p>
+    <a href="#check" class="btn-primary">Check if I qualify <span class="arr">&rarr;</span></a>
+    <div class="hero-stats">
+      <div class="stat-cell">
+        <span class="stat-n">3</span>
+        <span class="stat-l">Lab visits</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat-cell">
+        <span class="stat-n">60–90</span>
+        <span class="stat-l">Minutes each</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat-cell">
+        <span class="stat-n">Free</span>
+        <span class="stat-l">No cost, ever</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ============================================================ WHAT YOU GET -->
+<section class="sec-light">
+  <div class="container">
+    <span class="s-eyebrow fu">What participants receive</span>
+    <h2 class="s-h2 fu">Lab data, built around you.</h2>
+    <p class="s-sub fu">
+      Every participant gets a personalised physiology report after their final visit.
+      This is the kind of data elite coaches use — not estimates from a watch algorithm.
+    </p>
+    <div class="cards-3">
+
+      <div class="d-card c-blue-card fu fu-d1">
+        <div class="card-kicker">01 &mdash; Running Economy</div>
+        <div class="card-title">Your oxygen cost at pace</div>
+        <p class="card-body">How efficiently you use oxygen at your threshold pace. One of the strongest predictors of distance running performance — and something no wearable can measure accurately. Available to you on request after your final visit.</p>
+        <div class="card-visual">
+          <div class="re-bars" id="reBars"></div>
+        </div>
+      </div>
+
+      <div class="d-card c-orange fu fu-d2">
+        <div class="card-kicker">02 &mdash; Lactate Threshold</div>
+        <div class="card-title">Your exact tipping point</div>
+        <p class="card-body">The precise speed and heart rate where your aerobic system starts struggling. Measured from blood — not calculated from a generic formula.</p>
+        <div class="card-visual">
+          <svg id="lactSvg" width="100%" height="100%" viewBox="0 0 260 68" preserveAspectRatio="none" aria-hidden="true"></svg>
+        </div>
+      </div>
+
+      <div class="d-card c-blue fu fu-d3">
+        <div class="card-kicker">03 &mdash; Aerobic Threshold</div>
+        <div class="card-title">Your Zone 2 ceiling, in blood</div>
+        <p class="card-body">The exact speed and heart rate at which your aerobic base training sits. You can request individual feedback on your lactate threshold and running economy data after your final visit.</p>
+        <div class="card-visual" style="display:flex;align-items:center;padding:0 16px;gap:10px;">
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px;">
+            <div style="height:22px;background:#3B82F6;border-radius:3px;display:flex;align-items:center;padding:0 8px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.85);font-weight:500;">AEROBIC BASE &mdash; below LT1</span>
+            </div>
+            <div style="height:22px;background:#22C55E;border-radius:3px;opacity:0.55;display:flex;align-items:center;padding:0 8px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.8);font-weight:500;">THRESHOLD &mdash; at LT1</span>
+            </div>
+            <div style="height:22px;background:#94A3B8;border-radius:3px;opacity:0.35;display:flex;align-items:center;padding:0 8px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.6);font-weight:500;">ABOVE &mdash; not tested</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ HOW IT WORKS -->
+<section class="sec-steps">
+  <div class="container">
+    <span class="s-eyebrow fu">The process</span>
+    <h2 class="s-h2 fu">Three visits. One clear picture.</h2>
+    <p class="s-sub fu">
+      You'll visit our lab three times across two to three weeks. Each session is structured and fully supervised — you'll never show up not knowing what to expect.
+    </p>
+    <div class="steps-row">
+      <div class="step fu">
+        <div class="step-num">01</div>
+        <span class="step-tag">Visit 1 &middot; Lactate Threshold Test</span>
+        <div class="step-title">Establish your aerobic threshold</div>
+        <p class="step-body">An incremental treadmill test: you run at progressively faster speeds, each 3 minutes long, while we take a small fingertip blood sample at the end of each stage. This determines your individual LT1 speed — the pace used in Visits 2 and 3, and the anchor for your personal report.</p>
+        <div class="step-tags">
+          <span class="tag">&#128336; 60&ndash;90 min</span>
+          <span class="tag">&#129304; Fingertip samples</span>
+          <span class="tag">&#128536; Gas mask worn</span>
+        </div>
+      </div>
+      <div class="step fu fu-d1">
+        <div class="step-num">02</div>
+        <span class="step-tag">Visit 2 &middot; Running Economy Test</span>
+        <div class="step-title">Standard warm-up, then 10 minutes at your threshold pace</div>
+        <p class="step-body">After a standardised movement warm-up, you'll run for 10 minutes at exactly your LT1 speed from Visit 1. We measure oxygen consumption and breathing patterns throughout. No incremental stages, just a steady submaximal run.</p>
+        <div class="step-tags">
+          <span class="tag">&#128336; 60&ndash;90 min</span>
+          <span class="tag">&#128536; Gas mask worn</span>
+        </div>
+      </div>
+      <div class="step fu fu-d2">
+        <div class="step-num">03</div>
+        <span class="step-tag">Visit 3 &middot; Repeat Economy Test</span>
+        <div class="step-title">Same run, different warm-up</div>
+        <p class="step-body">An identical 10-minute run at your LT1 speed, with a different warm-up beforehand. Comparing gas analysis and breathing data across Visits 2 and 3 is how we answer the research question — and generate your personalised report.</p>
+        <div class="step-tags">
+          <span class="tag">&#128336; 60&ndash;90 min</span>
+          <span class="tag">&#128202; Report after this</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ ELIGIBILITY -->
+<section class="sec-light" id="check">
+  <div class="container">
+    <span class="s-eyebrow fu">Who can take part?</span>
+    <h2 class="s-h2 fu">You may be eligible if you:</h2>
+
+    <ul class="elig-list fu">
+      <li>run at least three times per week</li>
+      <li>can run continuously for 30 minutes</li>
+      <li>are between 18 and 45 years old</li>
+      <li>are free from injury affecting your running</li>
+      <li>have no known contraindications to vigorous exercise testing</li>
+      <li>can attend three visits at Falmer Campus, University of Brighton</li>
+    </ul>
+
+    <p class="elig-note fu">Not sure? The screening form takes two minutes and we will confirm from there.</p>
+    <a href="#REPLACE_WITH_MS_FORMS_URL" class="btn-primary fu">Complete the screening form &rarr;</a>
+  </div>
+</section>
+
+<!-- ============================================================ LOCATION & DIRECTIONS -->
+<section class="sec-light" id="location">
+  <div class="container">
+    <span class="s-eyebrow fu">Getting here</span>
+    <h2 class="s-h2 fu">Five minutes from Falmer station.</h2>
+    <p class="s-sub fu">The Meads Sport and Exercise Science Labs are on the University of Brighton Falmer Campus — easy to reach by train, bus, or car.</p>
+
+    <div class="loc-grid">
+      <div class="map-box fu">
+        <iframe
+          class="map-iframe"
+          src="https://www.google.com/maps?q=50.8588378,-0.0888379&z=16&output=embed"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <a href="https://maps.google.com/?q=Sport+and+Health+Complex,+Village+Way,+Falmer,+Brighton+BN1+9PH"
+           target="_blank" rel="noopener" class="map-link">
+          Open in Google Maps &rarr;
+        </a>
+      </div>
+
+      <div class="transport-stack fu">
+        <div class="transport-card">
+          <div class="t-icon">&#128642;</div>
+          <div>
+            <div class="t-title">By train, 8 minutes from Brighton</div>
+            <p class="t-body">Take any <strong>Southern</strong> service from Brighton station towards Lewes or Eastbourne. Get off at <strong>Falmer</strong>, one stop. From the platform exit, the Sport &amp; Health Complex is a flat 5-minute walk along Village Way.</p>
+          </div>
+        </div>
+
+        <div class="transport-card">
+          <div class="t-icon">&#128652;</div>
+          <div>
+            <div class="t-title">By bus</div>
+            <p class="t-body">The <strong>25</strong> runs from Brighton city centre to Falmer. Check <a href="https://www.buses.co.uk" target="_blank" rel="noopener">buses.co.uk</a> for the current timetable. Alight at the Falmer campus stop on Village Way. The Sport &amp; Health Complex is directly visible from there.</p>
+          </div>
+        </div>
+
+        <div class="transport-card">
+          <div class="t-icon">&#128664;</div>
+          <div>
+            <div class="t-title">By car, postcode BN1 9PH</div>
+            <p class="t-body">Enter via Village Way. Campus visitor parking is available. The researcher will send you a parking code when your visit is confirmed. Allow 10&ndash;15 minutes from central Brighton.</p>
+          </div>
+        </div>
+
+        <div class="transport-addr">
+          <span>&#128205;</span>
+          <span>Sport &amp; Health Complex, Village Way, Falmer, Brighton BN1&nbsp;9PH</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ TRUST STRIP -->
+<div class="trust-strip">
+  <div class="container">
+    <div class="trust-row">
+      <div class="trust-cell fu">
+        <div class="trust-icon">&#127979;</div>
+        <div>
+          <div class="trust-title">University of Brighton</div>
+          <div class="trust-sub">MSc Applied Sport Physiology</div>
+        </div>
+      </div>
+      <div class="trust-cell fu fu-d1">
+        <div class="trust-icon">&#9989;</div>
+        <div>
+          <div class="trust-title">Ethics Approved</div>
+          <div class="trust-sub">University ethics committee reviewed</div>
+        </div>
+      </div>
+      <div class="trust-cell fu fu-d2">
+        <div class="trust-icon">&#128274;</div>
+        <div>
+          <div class="trust-title">GDPR Compliant</div>
+          <div class="trust-sub">All data anonymised and secure</div>
+        </div>
+      </div>
+      <div class="trust-cell fu fu-d3">
+        <div class="trust-icon">&#129455;</div>
+        <div>
+          <div class="trust-title">All sessions supervised</div>
+          <div class="trust-sub">Qualified Sport &amp; Exercise scientist on-site</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ ABOUT -->
+<section class="sec-about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <span class="s-eyebrow fu">About the study</span>
+        <h2 class="s-h2 fu" style="font-size:clamp(26px,3.5vw,38px);">The science behind it.</h2>
+        <p style="font-size:16px;color:var(--text-mid);line-height:1.8;margin-top:16px;" class="fu">
+          This study investigates whether a specific type of breathing-focused warm-up affects your running economy and ventilatory responses during exercise.
+        </p>
+        <p style="font-size:16px;color:var(--text-mid);line-height:1.8;margin-top:16px;" class="fu">
+          Your diaphragm does two jobs simultaneously: it drives breathing and it stabilises your core. The warm-up protocol in this study is designed to train that dual role. We want to know if doing so changes how efficiently you run at threshold intensity.
+        </p>
+        <p style="font-size:16px;color:var(--text-mid);line-height:1.8;margin-top:16px;" class="fu">
+          As a participant, you help answer that question — and after your final visit, you can request individual feedback on your results, including your lactate threshold speed and running economy.
+        </p>
+      </div>
+      <div class="about-card fu">
+        <div class="about-kicker">Quick answers</div>
+
+        <div class="about-q">Do I need any prior experience with lab testing?</div>
+        <p class="about-a">No. You will be familiarised with the treadmill, breathing measurement equipment, and study procedures during Visit 1. Everything is explained before you start and all sessions are supervised.</p>
+
+        <div class="about-q">Is there any risk involved?</div>
+        <p class="about-a">The exercise involved is submaximal treadmill running — not a maximal test. There is a small risk of fatigue or breathlessness. Fingertip blood samples may cause brief discomfort but use sterile, single-use equipment. You may stop at any time. A health screening questionnaire is completed before testing begins.</p>
+
+        <div class="about-q">What happens to my data?</div>
+        <p class="about-a">You will be assigned a participant ID code so your name is not attached to your physiological data. All electronic data is stored on University OneDrive only. You may request withdrawal of your data up to 31 August 2026. After that point data will have been anonymised and incorporated into group-level analysis.</p>
+
+        <div class="about-q">Who is running this study?</div>
+        <p class="about-a">
+          <strong style="color:var(--text-hi);">Alexander Worden</strong><br>
+          MSc Applied Sport Physiology, University of Brighton<br>
+          <a href="mailto:A.Worden1@uni.brighton.ac.uk">A.Worden1@uni.brighton.ac.uk</a>
+        </p>
+        <p class="about-a" style="margin-top:10px;">
+          <strong style="color:var(--text-hi);">Supervisor: Dr Jake Butterworth</strong><br>
+          University of Brighton<br>
+          <a href="mailto:J.Butterworth2@brighton.ac.uk">J.Butterworth2@brighton.ac.uk</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FINAL CTA -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <span class="s-eyebrow fu" style="color:var(--blue);">Closes 31 July 2026</span>
+    <h2 class="s-h2 fu" style="color:var(--text-hi);">A few spots left.<br><span style="color:var(--blue);">Get booked in now.</span></h2>
+    <p class="s-sub fu">Testing runs through 31 July. Answer a few short questions — if you're eligible you can book your first visit directly from the form. Takes about two minutes.</p>
+    <a href="#REPLACE_WITH_MS_FORMS_URL" class="btn-primary fu" style="font-size:17px;padding:19px 38px;">
+      Start the eligibility form <span class="arr">&rarr;</span>
+    </a>
+    <p class="cta-note fu">
+      Questions first? Email <a href="mailto:A.Worden1@uni.brighton.ac.uk">A.Worden1@uni.brighton.ac.uk</a>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ FOOTER -->
+<footer>
+  <div class="foot-row container">
+    <span class="foot-copy">&copy; 2026 University of Brighton &middot; SE708 Final Research Project</span>
+    <div class="foot-links">
+      <a href="#REPLACE_WITH_PIS_URL" class="foot-link">Participant information</a>
+      <a href="#REPLACE_WITH_PRIVACY_URL" class="foot-link">Privacy notice</a>
+      <a href="mailto:A.Worden1@uni.brighton.ac.uk" class="foot-link">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   HERO WAVEFORM
+   ============================================================ */
+const canvas = document.getElementById('heroCanvas');
+const ctx = canvas.getContext('2d');
+let t = 0;
+
+function resize() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function breathWave(x, phase, freq, amp) {
+  const c = (x * freq + phase + t * 0.38) % (Math.PI * 2);
+  return amp * (
+    Math.sin(c) +
+    0.18 * Math.sin(2 * c + 0.4) +
+    0.07 * Math.sin(3 * c - 0.6)
+  );
+}
+
+function drawWave(yBase, amp, freq, phase, alpha, lw) {
+  ctx.beginPath();
+  ctx.strokeStyle = `rgba(59,130,246,${alpha})`;
+  ctx.lineWidth = lw;
+  ctx.lineJoin = 'round';
+  for (let x = 0; x <= canvas.width; x += 3) {
+    const y = yBase + breathWave(x, phase, freq, amp);
+    x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const cy = canvas.height * 0.68;
+  drawWave(cy,      44, 0.009,  0,          0.30, 1.8);
+  drawWave(cy + 26, 28, 0.013,  Math.PI*0.6, 0.16, 1.2);
+  drawWave(cy - 18, 18, 0.019,  Math.PI*1.3, 0.10, 0.8);
+  t += 0.017;
+  requestAnimationFrame(animate);
+}
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) animate();
+
+/* ============================================================
+   RUNNING ECONOMY BARS
+   ============================================================ */
+const heights = [32,40,50,56,65,74,80,76,84,89,86,82,91,85];
+const wrap = document.getElementById('reBars');
+heights.forEach(h => {
+  const b = document.createElement('div');
+  b.className = 're-bar';
+  b.style.height = h + '%';
+  wrap.appendChild(b);
+});
+
+/* ============================================================
+   LACTATE CURVE
+   ============================================================ */
+(function() {
+  const svg = document.getElementById('lactSvg');
+  const pts = [
+    [0,62],[28,59],[55,56],[82,52],[110,47],
+    [138,41],[163,33],[185,20],[205,10],[220,4]
+  ];
+  let d = `M ${pts[0][0]} ${pts[0][1]}`;
+  for (let i = 1; i < pts.length; i++) {
+    const cp1x = pts[i-1][0] + (pts[i][0]-pts[i-1][0])/2.8;
+    const cp2x = pts[i][0]   - (pts[i][0]-pts[i-1][0])/2.8;
+    d += ` C ${cp1x} ${pts[i-1][1]}, ${cp2x} ${pts[i][1]}, ${pts[i][0]} ${pts[i][1]}`;
+  }
+  const curve = document.createElementNS('http://www.w3.org/2000/svg','path');
+  curve.setAttribute('d', d);
+  curve.setAttribute('stroke','#FF6B47');
+  curve.setAttribute('stroke-width','2.2');
+  curve.setAttribute('fill','none');
+  svg.appendChild(curve);
+
+  const vline = document.createElementNS('http://www.w3.org/2000/svg','line');
+  vline.setAttribute('x1','163'); vline.setAttribute('y1','0');
+  vline.setAttribute('x2','163'); vline.setAttribute('y2','68');
+  vline.setAttribute('stroke','rgba(255,107,71,0.35)');
+  vline.setAttribute('stroke-width','1');
+  vline.setAttribute('stroke-dasharray','3,3');
+  svg.appendChild(vline);
+
+  const lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+  lbl.setAttribute('x','167'); lbl.setAttribute('y','14');
+  lbl.setAttribute('fill','#FF6B47');
+  lbl.setAttribute('font-size','9');
+  lbl.setAttribute('font-family','JetBrains Mono, monospace');
+  lbl.textContent = 'LT2';
+  svg.appendChild(lbl);
+})();
+
+/* Eligibility checker removed — replaced with static list */
+
+/* ============================================================
+   SCROLL FADE
+   ============================================================ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+document.querySelectorAll('.fu').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
