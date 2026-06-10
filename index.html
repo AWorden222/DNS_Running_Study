@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Running Science Study — University of Brighton</title>
+<meta name="description" content="Recreational runners are invited to register interest in a University of Brighton MSc research study investigating whether a breathing- and posture-focused warm-up influences running economy and breathing responses during submaximal treadmill running.">
+<meta property="og:title" content="Running Science Study — University of Brighton">
+<meta property="og:description" content="Contribute to research on warm-up strategies for runners. Free supervised lab testing, with individual results available on request. Three visits at Falmer Campus — register interest.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0C1E40">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -900,14 +905,127 @@ footer {
   order: 2;
 }
 .researcher-row > div { order: 1; flex: 1; }
+/* ============================================================
+   NAV LINKS
+   ============================================================ */
+.nav-links { display: flex; gap: 26px; }
+.nav-links a {
+  font-family: var(--font-b);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.18s;
+}
+.nav-links a:hover { color: var(--text-hi); }
+@media (max-width: 940px) { .nav-links { display: none; } }
+@media (max-width: 520px) { .nav-btn { display: none; } }
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+.faq-item { border-bottom: 1px solid rgba(13,27,46,0.08); padding-bottom: 14px; margin-bottom: 14px; }
+.faq-item summary.about-q {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  user-select: none;
+}
+.faq-item summary.about-q::-webkit-details-marker { display: none; }
+.faq-item summary.about-q::after {
+  content: '+';
+  font-family: var(--font-m);
+  font-size: 14px;
+  color: var(--blue);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.faq-item[open] summary.about-q::after { transform: rotate(45deg); }
+.faq-item .about-a { margin-top: 10px; }
+.faq-item summary.about-q:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+
+/* ============================================================
+   FLOATING REGISTER PILL
+   ============================================================ */
+.float-cta {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 300;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-d);
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--orange);
+  padding: 14px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 8px 28px rgba(255,107,71,0.35);
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.float-cta.show { opacity: 1; transform: none; pointer-events: auto; }
+.float-cta:hover { background: #ff7d5c; }
+@media (max-width: 600px) {
+  .float-cta { left: 16px; right: 16px; justify-content: center; bottom: 16px; }
+}
+
+/* ============================================================
+   SHARE BUTTON
+   ============================================================ */
+.share-btn {
+  display: inline-block;
+  margin-top: 26px;
+  font-family: var(--font-b);
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s, background 0.18s;
+}
+.share-btn:hover { color: #fff; border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.06); }
+.share-btn.copied { color: #fff; border-color: rgba(255,255,255,0.5); }
+
+/* ============================================================
+   BREATHING CTA — signature motion, ~11 breaths/min
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  .btn-primary { animation: breatheBlue 5.5s ease-in-out infinite; }
+  .btn-primary:hover { animation-play-state: paused; }
+  .float-cta.show { animation: breatheOrange 5.5s ease-in-out infinite; }
+  @keyframes breatheBlue {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34,102,174,0); }
+    45%      { box-shadow: 0 0 0 9px rgba(34,102,174,0.18); }
+  }
+  @keyframes breatheOrange {
+    0%, 100% { box-shadow: 0 8px 28px rgba(255,107,71,0.35), 0 0 0 0 rgba(255,107,71,0); }
+    45%      { box-shadow: 0 8px 28px rgba(255,107,71,0.35), 0 0 0 8px rgba(255,107,71,0.16); }
+  }
+}
+
+#daysLeft { color: rgba(255,255,255,0.75); }
+
 </style>
 </head>
 <body>
 
 <!-- ============================================================ ANNOUNCEMENT BAR -->
 <div class="announce-bar">
-  Testing runs through <strong>31 July 2026</strong>.
-  <a href="https://forms.office.com/e/LUwnYsCfJm" target="_blank" rel="noopener">Check eligibility &rarr;</a>
+  Testing runs through <strong>31 July 2026</strong><span id="daysLeft"></span>.
+  <a href="https://forms.office.com/e/LUwnYsCfJm" target="_blank" rel="noopener">Register interest &rarr;</a>
 </div>
 
 <!-- ============================================================ NAV -->
@@ -917,7 +1035,14 @@ footer {
       <span class="nav-brand-main">University of Brighton</span>
       <span class="nav-brand-sub">MSc Applied Sport Physiology</span>
     </div>
-    
+    <div class="nav-links" aria-label="Page sections">
+      <a href="#learn-more">Results</a>
+      <a href="#visits">Visits</a>
+      <a href="#check">Suitability</a>
+      <a href="#location">Getting here</a>
+      <a href="#about">About</a>
+    </div>
+    <a class="nav-btn" href="https://forms.office.com/e/LUwnYsCfJm" target="_blank" rel="noopener">Register interest</a>
   </div>
 </nav>
    <div id="scrollProgress" style="position:fixed;top:103px;left:0;height:3px;width:0%;background:#FF6B47;z-index:199;transition:width 0.08s linear;"></div>
@@ -928,10 +1053,10 @@ footer {
   <div class="hero-content container">
     <span class="eyebrow">Closes 31 July 2026 &middot; Meads Sport &amp; Exercise Science Labs, Brighton</span>
     <h1 class="hero-h1">
-      Looking for runners of all skill levels.<br><span class="accent">Free lab testing and performance insights.</span>
+      Contribute to research on warm-up strategies for runners.<br><span class="accent">Free lab testing and performance insights.</span>
     </h1>
     <p class="hero-sub">
-      Recreational runners needed for a University of Brighton physiology study. Three supervised lab visits, with your results available on request.
+      Recreational runners are invited to register interest in a University of Brighton MSc research study investigating whether a breathing- and posture-focused warm-up influences running economy and breathing responses during submaximal treadmill running.
     </p>
     <a href="#learn-more" class="btn-primary">Learn more <span class="arr">&rarr;</span></a>
     <div class="hero-stats">
@@ -958,14 +1083,14 @@ footer {
 <section class="sec-light" id="learn-more">
   <div class="container">
     <span class="s-eyebrow fu">What you'll receive</span>
-    <h2 class="s-h2 fu">Useful physiology data from a supervised lab test.</h2>
+    <h2 class="s-h2 fu">Individual physiology results available on request.</h2>
     <p class="s-sub fu">After your final visit, you can request a personalised summary of your testing results. This includes information that is difficult to measure accurately outside a sport and exercise science laboratory.</p>
     <div class="cards-3">
 
       <div class="d-card c-blue-card fu fu-d1">
         <div class="card-kicker">01 &mdash; Running Economy</div>
         <div class="card-title">How much oxygen you use at a set running speed</div>
-        <p class="card-body">Running economy shows how efficiently you use oxygen while running at a controlled pace. It is an important marker of distance-running efficiency and cannot be measured accurately from a watch alone. Your running economy data will be available on request after your final visit.</p>
+        <p class="card-body">Running economy describes the oxygen cost of running at a controlled speed. It is an important marker of distance-running efficiency and cannot be measured accurately from a watch alone. This will be measured as part of the study, and your result will be available on request after your final visit.</p>
         <div class="card-visual">
           <div class="re-bars" id="reBars"></div>
         </div>
@@ -974,7 +1099,7 @@ footer {
       <div class="d-card c-orange fu fu-d2">
         <div class="card-kicker">02 &mdash; Lactate Threshold</div>
         <div class="card-title">Your higher-intensity transition point</div>
-        <p class="card-body">Lactate threshold testing helps identify the speed and heart rate where blood lactate begins to rise more rapidly. This gives a clearer picture of how your body responds as running intensity increases. The test uses small fingertip blood samples taken during an incremental treadmill run.</p>
+        <p class="card-body">Lactate threshold testing helps identify the speed and heart rate where blood lactate begins to rise more rapidly. This gives a clearer picture of how your body responds as running intensity increases. The first visit includes an incremental treadmill run with small fingertip blood samples taken near the end of each stage to measure blood lactate.</p>
         <div class="card-visual">
           <svg id="lactSvg" width="100%" height="100%" viewBox="0 0 260 68" preserveAspectRatio="none" aria-hidden="true"></svg>
         </div>
@@ -1003,17 +1128,17 @@ footer {
 </section>
 
 <!-- ============================================================ HOW IT WORKS -->
-<section class="sec-steps">
+<section class="sec-steps" id="visits">
   <div class="container">
     <span class="s-eyebrow fu">What to expect</span>
-    <h2 class="s-h2 fu">Three lab visits over approximately one to three weeks.</h2>
+    <h2 class="s-h2 fu">Three lab visits, separated by at least 48 hours.</h2>
     <p class="s-sub fu">You will visit the University of Brighton sport and exercise science laboratory three times. Each visit is supervised, structured, and explained clearly before you begin.</p>
     <div class="steps-row">
       <div class="step fu">
         <div class="step-num">01</div>
         <span class="step-tag">Visit 1 &middot; Lactate Threshold Test</span>
         <div class="step-title">Finding your individual LT1 speed</div>
-        <p class="step-body">The first visit involves an incremental treadmill test. You will run at gradually increasing speeds, with each stage lasting 3 minutes. At the end of each stage, a small fingertip blood sample is taken to measure blood lactate. This allows us to identify your individual LT1 speed, which is then used for the running economy tests in Visits 2 and 3.</p>
+        <p class="step-body">Visit 1 involves an incremental treadmill run to determine your first lactate threshold (LT1) speed. You will run at gradually increasing speeds, with each stage lasting 3 minutes. This includes breathing measurements, heart-rate monitoring, rating of perceived exertion, and small fingertip blood samples near the end of each stage. Your LT1 speed is then used for the running economy tests in Visits 2 and 3.</p>
         <div class="step-tags">
           <span class="tag">Approx. 60&ndash;90 min</span>
           <span class="tag">Treadmill running</span>
@@ -1025,7 +1150,7 @@ footer {
         <div class="step-num">02</div>
         <span class="step-tag">Visit 2 &middot; Running Economy Test</span>
         <div class="step-title">A steady run after one warm-up condition</div>
-        <p class="step-body">During the second visit, you will complete a standardised warm-up followed by a 10-minute treadmill run at your individual LT1 speed from Visit 1. Oxygen use and breathing responses are measured throughout the run. This is a steady, submaximal run rather than a maximal fitness test.</p>
+        <p class="step-body">During Visit 2, you will complete a standardised warm-up followed by a 10-minute treadmill run at your individual LT1 speed from Visit 1. Oxygen use, breathing responses, heart rate, and perceived exertion will be measured. This is a steady, submaximal run rather than a maximal fitness test.</p>
         <div class="step-tags">
           <span class="tag">Approx. 60&ndash;90 min</span>
           <span class="tag">Treadmill running</span>
@@ -1037,7 +1162,7 @@ footer {
         <div class="step-num">03</div>
         <span class="step-tag">Visit 3 &middot; Repeat Running Economy Test</span>
         <div class="step-title">The same run after a different warm-up condition</div>
-        <p class="step-body">The third visit follows the same structure as Visit 2, but with a different warm-up beforehand. You will again run for 10 minutes at your individual LT1 speed. Comparing the two running economy tests allows us to examine whether the warm-up changes oxygen use and breathing responses during submaximal running.</p>
+        <p class="step-body">Visit 3 follows the same structure as Visit 2, but with a different warm-up condition beforehand. You will again run for 10 minutes at your individual LT1 speed. Comparing the two visits allows the study to examine whether the warm-up changes oxygen use or breathing responses during submaximal running.</p>
         <div class="step-tags">
           <span class="tag">Approx. 60&ndash;90 min</span>
           <span class="tag">Treadmill running</span>
@@ -1053,19 +1178,21 @@ footer {
 <section class="sec-light" id="check">
   <div class="container">
     <span class="s-eyebrow fu">Who can take part?</span>
-    <h2 class="s-h2 fu">You may be eligible if you:</h2>
+    <h2 class="s-h2 fu">You may be suitable if you:</h2>
 
     <ul class="elig-list fu">
-      <li>run at least three times per week</li>
-      <li>can run continuously for at least 30 minutes</li>
-      <li>are between 18 and 45 years old</li>
+      <li>are aged 18&ndash;45 years</li>
+      <li>self-identify as a recreational runner</li>
+      <li>currently run at least twice per week and have done so for at least six months</li>
+      <li>can run continuously for 30 minutes</li>
+      <li>have a recent or estimated 5&nbsp;km time of 20&ndash;35 minutes</li>
       <li>are free from injury affecting your running</li>
-      <li>have no known contraindications to vigorous exercise testing</li>
-      <li>can attend three visits at Falmer Campus, University of Brighton</li>
+      <li>can attend three laboratory visits at the University of Brighton Falmer Campus</li>
     </ul>
 
-    <p class="elig-note fu">Not sure? The screening form takes two minutes and we will confirm from there.</p>
-    <a href="https://forms.office.com/e/LUwnYsCfJm" class="btn-primary fu">Complete the screening form &rarr;</a>
+    <p class="elig-note fu">Final suitability is confirmed after written consent and University preparticipation screening.</p>
+    <p class="elig-note fu">Not sure? Register your interest and the researcher will send you the Participant Information Sheet.</p>
+    <a href="https://forms.office.com/e/LUwnYsCfJm" class="btn-primary fu">Register interest &rarr;</a>
   </div>
 </section>
 
@@ -1074,7 +1201,7 @@ footer {
   <div class="container">
     <span class="s-eyebrow fu">Getting here</span>
     <h2 class="s-h2 fu">Five minutes from Falmer station.</h2>
-    <p class="s-sub fu">The Meads Sport and Exercise Science Labs are on the University of Brighton Falmer Campus — easy to reach by train, bus, or car.</p>
+    <p class="s-sub fu">The Meads Sport and Exercise Science Labs are on the University of Brighton Falmer Campus, School of Education, Sport and Health Sciences — easy to reach by train, bus, or car.</p>
 
     <div class="loc-grid">
       <div class="map-box fu">
@@ -1131,20 +1258,20 @@ footer {
       </div>
       <div class="trust-cell fu fu-d1">
         <div>
-          <div class="trust-title">Ethics Approved</div>
-          <div class="trust-sub">University ethics committee reviewed</div>
+          <div class="trust-title">Ethics approved</div>
+          <div class="trust-sub">School of Education, Sport and Health Sciences Research Ethics Committee &middot; BREAM: 2026-16773-Worden</div>
         </div>
       </div>
       <div class="trust-cell fu fu-d2">
         <div>
-          <div class="trust-title">GDPR Compliant</div>
-          <div class="trust-sub">All data anonymised and secure</div>
+          <div class="trust-title">Data handled through University systems</div>
+          <div class="trust-sub">Contact details are collected only through the University of Brighton Microsoft Forms system</div>
         </div>
       </div>
       <div class="trust-cell fu fu-d3">
         <div>
           <div class="trust-title">All sessions supervised</div>
-          <div class="trust-sub">Qualified Sport &amp; Exercise scientist on-site</div>
+          <div class="trust-sub">Testing is supervised in the University laboratory</div>
         </div>
       </div>
     </div>
@@ -1152,14 +1279,14 @@ footer {
 </div>
 
 <!-- ============================================================ ABOUT -->
-<section class="sec-about">
+<section class="sec-about" id="about">
   <div class="container">
     <div class="about-grid">
       <div>
         <span class="s-eyebrow fu">The science behind the study</span>
         <h2 class="s-h2 fu" style="font-size:clamp(26px,3.5vw,38px);">Why breathing, posture, and running economy?</h2>
         <p style="font-size:16px;color:var(--text-dk2);line-height:1.8;margin-top:16px;" class="fu">
-          This study looks at whether a breathing- and posture-focused warm-up can influence running economy and breathing responses during submaximal treadmill running.
+          This study investigates whether a DNS-informed breathing- and posture-focused warm-up can influence running economy and breathing responses during submaximal treadmill running.
         </p>
         <p style="font-size:16px;color:var(--text-dk2);line-height:1.8;margin-top:16px;" class="fu">
           The diaphragm is involved in both breathing and trunk stability. During running, these demands happen at the same time: you need to breathe effectively while maintaining posture and control through repeated impact. The warm-up used in this study is designed to emphasise that breathing-postural connection before running.
@@ -1174,27 +1301,34 @@ footer {
       <div class="about-card fu">
         <div class="about-kicker">Quick answers</div>
 
-        <div class="about-q">Do I need any prior experience with lab testing?</div>
-        <p class="about-a">No. You will be familiarised with the treadmill, breathing measurement equipment, and study procedures during Visit 1. Everything is explained before you start and all sessions are supervised.</p>
+        <details class="faq-item" open>
+          <summary class="about-q">Do I need any prior experience with lab testing?</summary>
+          <p class="about-a">No. You will be familiarised with the treadmill, breathing measurement equipment, and study procedures during Visit 1. Everything is explained before you start and all sessions are supervised.</p>
+        </details>
 
-        <div class="about-q">Is there any risk involved?</div>
-        <p class="about-a">The exercise involved is submaximal treadmill running — not a maximal test. There is a small risk of fatigue or breathlessness. Fingertip blood samples may cause brief discomfort but use sterile, single-use equipment. You may stop at any time. A health screening questionnaire is completed before testing begins.</p>
+        <details class="faq-item">
+          <summary class="about-q">Is there any risk involved?</summary>
+          <p class="about-a">There is a small risk of fatigue or breathlessness. Fingertip blood samples may cause brief discomfort but use sterile, single-use equipment. Before any testing takes place, you will receive the Participant Information Sheet, provide written informed consent, and complete the ACSM Preparticipation Health Screening Questionnaire through University procedures. The exercise is submaximal treadmill running, but you may stop at any time.</p>
+        </details>
 
-        <div class="about-q">What happens to my data?</div>
-        <p class="about-a">You will be assigned a participant ID code so your name is not attached to your physiological data. All electronic data is stored on University OneDrive only. You may request withdrawal of your data up to 31 August 2026. After that point data will have been anonymised and incorporated into group-level analysis.</p>
+        <details class="faq-item">
+          <summary class="about-q">What happens to my data?</summary>
+          <p class="about-a">You will be assigned a participant ID code so your name is not attached to physiological data. Electronic research data will be stored on University OneDrive only. You may request withdrawal of your data up to 31 August 2026 at 17:00. After that point, data will have been anonymised and incorporated into group-level analysis.</p>
+        </details>
 
         <div class="about-q">Who is running this study?</div>
         <div class="researcher-row about-a">
           <img src="./alex-worden.jpg" alt="Alexander Worden" class="researcher-photo">
           <div>
             <strong style="color:var(--text-dk);">Alexander Worden</strong><br>
-            MSc Applied Sport Physiology, University of Brighton<br>
+            MSc Applied Sport Physiology<br>
+            School of Education, Sport and Health Sciences, University of Brighton<br>
             <a href="mailto:A.Worden1@uni.brighton.ac.uk">A.Worden1@uni.brighton.ac.uk</a>
           </div>
         </div>
         <p class="about-a" style="margin-top:10px;">
           <strong style="color:var(--text-dk);">Supervisor: Dr Jake Butterworth</strong><br>
-          University of Brighton<br>
+          School of Education, Sport and Health Sciences, University of Brighton<br>
           <a href="mailto:J.Butterworth2@brighton.ac.uk">J.Butterworth2@brighton.ac.uk</a>
         </p>
       </div>
@@ -1208,13 +1342,27 @@ footer {
   <div class="container" style="position:relative;z-index:2;">
     <span class="s-eyebrow fu" style="color:rgba(255,255,255,0.65);letter-spacing:0.16em;">Recruitment closes 31 July 2026</span>
     <h2 class="s-h2 fu" style="color:#FFFFFF;font-size:clamp(32px,5vw,56px);">Interested in taking part?</h2>
-    <p class="fu" style="font-size:17px;color:rgba(255,255,255,0.78);line-height:1.8;max-width:520px;margin:0 auto 14px;">Testing will run until 31 July. Complete a short eligibility form to see whether the study is suitable for you. If eligible, you can book your first laboratory visit directly from the form.</p>
-    <p class="fu" style="font-size:15px;color:rgba(255,255,255,0.55);line-height:1.75;max-width:500px;margin:0 auto 36px;">Booking earlier is recommended so there is enough time to complete all three visits before testing closes. The form takes approximately two minutes to complete.</p>
+    <p class="fu" style="font-size:17px;color:rgba(255,255,255,0.78);line-height:1.8;max-width:520px;margin:0 auto 14px;">Register your interest using the link below. The form only asks for your name and email address so the researcher can send you the Participant Information Sheet and answer questions.</p>
+    <p class="fu" style="font-size:15px;color:rgba(255,255,255,0.55);line-height:1.75;max-width:500px;margin:0 auto 36px;">Formal consent and preparticipation screening are completed later through University procedures before any testing takes place. Registering earlier is recommended so there is enough time to complete all three visits before testing closes on 31 July.</p>
     <a href="https://forms.office.com/e/LUwnYsCfJm" target="_blank" rel="noopener" class="btn-primary fu" style="font-size:17px;padding:19px 38px;">
       Register your interest <span class="arr">&rarr;</span>
     </a>
     <p class="cta-note fu">
       Questions first? Email <a href="mailto:A.Worden1@uni.brighton.ac.uk" style="color:rgba(255,255,255,0.5);">A.Worden1@uni.brighton.ac.uk</a>
+    </p>
+    <button class="share-btn fu" id="shareBtn" type="button">Know a runner who might be interested? Share this page</button>
+  </div>
+</section>
+
+<!-- ============================================================ WEBSITE PRIVACY -->
+<section class="sec-light" id="website-privacy">
+  <div class="container" style="max-width:720px;">
+    <span class="s-eyebrow fu">Website and expression of interest</span>
+    <p style="font-size:15px;color:var(--text-dk2);line-height:1.8;margin-top:14px;" class="fu">
+      This page is a static recruitment webpage hosted using GitHub Pages. The webpage itself does not collect, store, or process participant information.
+    </p>
+    <p style="font-size:15px;color:var(--text-dk2);line-height:1.8;margin-top:14px;" class="fu">
+      If you choose to register interest, you will be directed to a University of Brighton Microsoft Form. This form collects only your name and email address so the researcher can send you the Participant Information Sheet and answer questions. No health, medical, or exercise-screening information is collected through this website or expression-of-interest form.
     </p>
   </div>
 </section>
@@ -1230,6 +1378,10 @@ footer {
     </div>
   </div>
 </footer>
+
+<a href="https://forms.office.com/e/LUwnYsCfJm" target="_blank" rel="noopener" class="float-cta" id="floatCta" aria-label="Register interest in the study">
+  Register interest <span class="arr">&rarr;</span>
+</a>
 
 <script>
 /* ============================================================
@@ -1346,6 +1498,59 @@ window.addEventListener('scroll', function() {
   var p = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
   document.getElementById('scrollProgress').style.width = p + '%';
 });
+
+/* ============================================================
+   DAYS REMAINING COUNTER
+   ============================================================ */
+(function() {
+  const el = document.getElementById('daysLeft');
+  if (!el) return;
+  const close = new Date('2026-07-31T23:59:59');
+  const days = Math.ceil((close - new Date()) / 86400000);
+  if (days > 1) el.textContent = ' \u00B7 ' + days + ' days remaining';
+  else if (days === 1) el.textContent = ' \u00B7 final day';
+})();
+
+/* ============================================================
+   FLOATING REGISTER PILL
+   Shows after the hero, hides over the final CTA + footer
+   ============================================================ */
+(function() {
+  const pill = document.getElementById('floatCta');
+  const hero = document.querySelector('.hero');
+  const cta  = document.querySelector('.cta-section');
+  if (!pill || !hero || !cta) return;
+  let pastHero = false, overCta = false;
+  const update = () => pill.classList.toggle('show', pastHero && !overCta);
+  new IntersectionObserver(e => { pastHero = !e[0].isIntersecting; update(); }, { threshold: 0.05 }).observe(hero);
+  new IntersectionObserver(e => { overCta = e[0].isIntersecting; update(); }, { threshold: 0.05 }).observe(cta);
+})();
+
+/* ============================================================
+   SHARE BUTTON
+   ============================================================ */
+(function() {
+  const btn = document.getElementById('shareBtn');
+  if (!btn) return;
+  const original = btn.textContent;
+  btn.addEventListener('click', async () => {
+    const shareData = {
+      title: document.title,
+      text: 'Contribute to research on warm-up strategies for runners \u2014 University of Brighton.',
+      url: window.location.href
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        btn.textContent = 'Link copied \u2713';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 2200);
+      }
+    } catch (e) { /* user cancelled share sheet */ }
+  });
+})();
 </script>
 </body>
 </html>
