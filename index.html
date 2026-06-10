@@ -920,6 +920,7 @@ footer {
     
   </div>
 </nav>
+   <div id="scrollProgress" style="position:fixed;top:88px;left:0;height:3px;width:0%;background:#1A5896;z-index:199;transition:width 0.08s linear;"></div>
 
 <!-- ============================================================ HERO -->
 <section class="hero">
@@ -950,12 +951,7 @@ footer {
       </div>
     </div>
   </div>
-  <div class="scroll-cue">
-  <a href="#learn-more" style="color:rgba(255,255,255,0.5);font-size:28px;animation:scrollDrop 1.8s ease-in-out infinite;display:block;text-decoration:none;">&#8964;</a>
-</div>
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
+  
 </section>
 
 <!-- ============================================================ WHAT YOU GET -->
@@ -1343,5 +1339,9 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
 document.querySelectorAll('.fu').forEach(el => io.observe(el));
 </script>
+   window.addEventListener('scroll', function() {
+  var p = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('scrollProgress').style.width = p + '%';
+});
 </body>
 </html>
