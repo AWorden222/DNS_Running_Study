@@ -1338,10 +1338,14 @@ const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
 }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
 document.querySelectorAll('.fu').forEach(el => io.observe(el));
-</script>
-   window.addEventListener('scroll', function() {
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+   ============================================================ */
+window.addEventListener('scroll', function() {
   var p = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
   document.getElementById('scrollProgress').style.width = p + '%';
 });
+</script>
 </body>
 </html>
