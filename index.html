@@ -136,6 +136,17 @@ a { text-decoration: none; }
 }
 .nav-btn:hover { background: var(--blue-dim); border-color: var(--blue); }
 
+.nav-brand-group { display: flex; align-items: center; gap: 14px; }
+.uob-logo {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+@media (max-width: 600px) {
+  .uob-logo { height: 34px; }
+}
+
 /* ============================================================
    HERO
    ============================================================ */
@@ -1031,9 +1042,12 @@ footer {
 <!-- ============================================================ NAV -->
 <nav class="nav">
   <div class="nav-inner container">
-    <div class="nav-brand">
-      <span class="nav-brand-main">University of Brighton</span>
-      <span class="nav-brand-sub">MSc Applied Sport Physiology</span>
+    <div class="nav-brand-group">
+      <img src="./uob-logo.png" alt="University of Brighton logo" class="uob-logo">
+      <div class="nav-brand">
+        <span class="nav-brand-main">University of Brighton</span>
+        <span class="nav-brand-sub">MSc Applied Sport Physiology</span>
+      </div>
     </div>
     <div class="nav-links" aria-label="Page sections">
       <a href="#learn-more">Results</a>
@@ -1109,17 +1123,33 @@ footer {
         <div class="card-kicker">03 &middot; Individualised running speed</div>
         <div class="card-title">The speed used for your experimental running tests</div>
         <p class="card-body">The running speed used in Visits 2 and 3 is determined from your Visit 1 lactate-profile test. This allows the study to compare the two conditions at a speed that is standardised to you rather than using the same treadmill speed for every participant.</p>
-        <div class="card-visual" style="background:white;padding:10px 10px 6px;display:flex;flex-direction:column;gap:6px;">
-          <div style="display:flex;height:10px;border-radius:3px;overflow:hidden;gap:1px;">
-            <div style="flex:2;background:#2266AE;"></div>
-            <div style="flex:1.2;background:#22C55E;opacity:0.8;"></div>
-            <div style="flex:1;background:#CBD5E1;"></div>
-          </div>
-          <div style="display:flex;gap:4px;">
-            <div style="flex:2;font-family:'JetBrains Mono',monospace;font-size:8px;color:#3B5A74;line-height:1.4;">Lactate profile<br>Staged treadmill running</div>
-            <div style="flex:1.2;font-family:'JetBrains Mono',monospace;font-size:8px;color:#3B5A74;line-height:1.4;">Experimental trials<br>Individualised submaximal speed</div>
-            <div style="flex:1;font-family:'JetBrains Mono',monospace;font-size:8px;color:#94A3B8;line-height:1.4;">Running tests<br>10 minutes each</div>
-          </div>
+        <div class="card-visual">
+          <svg id="speedSvg" width="100%" height="100%" viewBox="0 0 260 68" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <!-- speed axis: slower -> faster -->
+            <line x1="18" y1="44" x2="232" y2="44" stroke="#CBD5E1" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M232 44 L225 40.5 L225 47.5 Z" fill="#CBD5E1"/>
+            <g stroke="#D8E2EC" stroke-width="1">
+              <line x1="40" y1="44" x2="40" y2="49"/>
+              <line x1="75" y1="44" x2="75" y2="49"/>
+              <line x1="110" y1="44" x2="110" y2="49"/>
+              <line x1="145" y1="44" x2="145" y2="49"/>
+              <line x1="180" y1="44" x2="180" y2="49"/>
+              <line x1="215" y1="44" x2="215" y2="49"/>
+            </g>
+            <!-- other participants: each set to a different individualised speed -->
+            <g fill="#EEF2F7" stroke="#9FB3C8" stroke-width="1.4">
+              <circle cx="58" cy="44" r="3"/>
+              <circle cx="92" cy="44" r="3"/>
+              <circle cx="170" cy="44" r="3"/>
+              <circle cx="206" cy="44" r="3"/>
+            </g>
+            <!-- your individualised submaximal speed -->
+            <rect x="127" y="11" width="16" height="37" rx="4" fill="#2266AE" fill-opacity="0.07"/>
+            <line x1="135" y1="16" x2="135" y2="44" stroke="#FF6B47" stroke-width="1.6" stroke-dasharray="3,3"/>
+            <circle cx="135" cy="14" r="2.6" fill="#FF6B47"/>
+            <circle cx="135" cy="44" r="7.5" fill="none" stroke="#2266AE" stroke-opacity="0.25" stroke-width="1.4"/>
+            <circle cx="135" cy="44" r="5" fill="#2266AE" stroke="#FFFFFF" stroke-width="1.6"/>
+          </svg>
         </div>
       </div>
 
@@ -1258,6 +1288,7 @@ footer {
         </div>
       </div>
       <div class="trust-cell fu fu-d1">
+        <!-- ETHICS STATUS: Do not change it to "Ethics approved" until I provide the final approval wording. -->
         <div>
           <div class="trust-title">Ethics amendment under review</div>
           <div class="trust-sub">Data collection will begin only after favourable ethical opinion has been granted. BREAM ref: 2026-16773-Worden</div>
@@ -1297,6 +1328,9 @@ footer {
         </p>
         <p style="font-size:16px;color:var(--text-dk2);line-height:1.8;margin-top:16px;" class="fu">
           By taking part, you contribute to research on warm-up strategies for recreational runners. After your final visit, you may request individual feedback that includes information from your lactate profile, individualised running speed, and running economy or oxygen cost measures.
+        </p>
+        <p style="font-size:13px;color:var(--text-lo);line-height:1.7;margin-top:28px;padding-top:18px;border-top:1px solid #E2E9F0;" class="fu">
+          Study title: The Acute Effect of a DNS-Informed Respiratory-Postural Warm-Up on Running Economy and Ventilatory Responses in Recreational Runners
         </p>
       </div>
       <div class="about-card fu">
@@ -1343,7 +1377,7 @@ footer {
   <div class="container" style="position:relative;z-index:2;">
     <span class="s-eyebrow fu" style="color:rgba(255,255,255,0.65);letter-spacing:0.16em;">Recruitment closes 31 July 2026</span>
     <h2 class="s-h2 fu" style="color:#FFFFFF;font-size:clamp(32px,5vw,56px);">Interested in taking part?</h2>
-    <p class="fu" style="font-size:17px;color:rgba(255,255,255,0.78);line-height:1.8;max-width:520px;margin:0 auto 14px;">Register your interest using the link below. The form only asks for your name and email address so the researcher can send you the Participant Information Sheet and answer questions.</p>
+    <p class="fu" style="font-size:17px;color:rgba(255,255,255,0.78);line-height:1.8;max-width:520px;margin:0 auto 14px;">Register your interest using the link below. The form only asks for your name and email address so the researcher can send you the Participant Information Sheet and answer questions. You can also read the <a href="./participant-information-sheet.pdf" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.92);text-decoration:underline;text-underline-offset:2px;">Participant Information Sheet</a> directly from this page before registering.</p>
     <p class="fu" style="font-size:15px;color:rgba(255,255,255,0.55);line-height:1.75;max-width:500px;margin:0 auto 36px;">Formal consent and preparticipation screening are completed later through University procedures before any testing takes place. Registering earlier helps ensure there is enough time to complete the consent process, preparticipation screening, and all three laboratory visits before testing closes on 31 July. No payment is provided for taking part.</p>
     <a href="https://forms.office.com/e/dfTSV392N1" target="_blank" rel="noopener" class="btn-primary fu" style="font-size:17px;padding:19px 38px;">
       Register your interest <span class="arr">&rarr;</span>
@@ -1373,8 +1407,8 @@ footer {
   <div class="foot-row container">
     <span class="foot-copy">&copy; 2026 University of Brighton &middot; SE708 Final Research Project</span>
     <div class="foot-links">
-      <a href="./participant-information-sheet.pdf" class="foot-link">Participant information</a>
-      <a href="https://unibrightonac.sharepoint.com/:b:/s/public/ERAnx7fZSR9Lv6MRZ1KwpMMBcOSYGp30CAwkTzbbzHLDNQ" class="foot-link">Privacy notice</a>
+      <a href="./participant-information-sheet.pdf" target="_blank" rel="noopener" class="foot-link">Participant information</a>
+      <a href="https://unibrightonac.sharepoint.com/:b:/s/public/ERAnx7fZSR9Lv6MRZ1KwpMMBcOSYGp30CAwkTzbbzHLDNQ" target="_blank" rel="noopener" class="foot-link">Privacy notice</a>
       <a href="mailto:A.Worden1@uni.brighton.ac.uk" class="foot-link">Contact</a>
     </div>
   </div>
